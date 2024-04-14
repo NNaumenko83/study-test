@@ -10,12 +10,24 @@ function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setTodos([...todos, { todo, id: nanoid() }]);
+        setTodos([...todos, { todo, id: nanoid(), done: false }]);
         setTodo("");
     };
 
     const handleChange = (e) => {
         setTodo(e.target.value);
+    };
+
+    const deleteTask = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
+    const changeStatus = (id) => {
+        setTodos(
+            todos.map((todo) => {
+                return todo.id === id ? { ...todo, done: !todo.done } : todo;
+            })
+        );
     };
 
     return (
@@ -32,7 +44,13 @@ function App() {
                 </button>
             </form>
             <div>Todolist</div>
-            {todos.length > 0 && <TodoList todos={todos} />}
+            {todos.length > 0 && (
+                <TodoList
+                    todos={todos}
+                    deleteTask={deleteTask}
+                    changeStatus={changeStatus}
+                />
+            )}
         </>
     );
 }
