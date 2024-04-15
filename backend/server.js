@@ -8,6 +8,10 @@ const connectDB = require("../config/connectDB")
 
 const app = express()
 
+app.use(express.urlencoded({ extended:false }))
+app.use(express.json())
+
+
 app.use("/api/v1", require("./routes/moviesRoutes"))
 
 connectDB()

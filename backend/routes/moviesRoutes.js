@@ -4,7 +4,7 @@ const moviesController =require("../controllers/moviesController")
 const moviesRoutes = require("express").Router()
 
 // Add film to DB
-moviesRoutes.post("/movies", moviesController.add)
+moviesRoutes.post("/movies", (req, res, next) => { console.log("JOI"); next()} ,moviesController.add)
 
 // Get all movies
 moviesRoutes.get("/movies", moviesController.getAll)
