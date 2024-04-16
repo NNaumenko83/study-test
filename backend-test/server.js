@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 require("colors");
 const moviesRouter = require("./moviesRoutes/moviesRouter");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -11,8 +12,21 @@ app.use((req, res, next) => {
 });
 app.use("/api/v1/movies", moviesRouter);
 
-app.listen(process.env.PORT, () => {
-    console.log(
-        `Server is running on PORT ${process.env.PORT}`.green.italic.bold
-    );
-});
+mongoose
+    .connect(process.env.MONGO_URL)
+    .then((DB) => {
+        console.log(
+            `DB connect on PORT: ${DB.connection.port}, Name: ${DB.connection.name}`
+                .green.bold.italic
+        );
+        app.listen(process.env.PORT, () => {
+            console.log(
+                `Server is running on PORT ${process.env.PORT}`.green.italic
+                    .bold
+            );
+        });
+    })
+    .catch((error) => {
+        console.log(error.message);
+        process.exit(1);
+    });
