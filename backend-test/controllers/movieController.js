@@ -8,10 +8,13 @@ class MovieController {
         res.status(201).json({ code: 201, data });
     });
     getAll = AsyncHandler(async (req, res) => {
-        res.status(201).json({ code: 201, data: "Added" });
+        const movies = await movieService.show();
+        res.status(201).json({ code: 200, data: movies, qty: movies.length });
     });
     getOne = AsyncHandler(async (req, res) => {
-        res.status(201).json({ code: 201, data: "Added" });
+        const { id } = req.params;
+        const movie = await movieService.getOne(id);
+        res.status(200).json({ code: 200, data: movie });
     });
     update = AsyncHandler(async (req, res) => {
         res.status(201).json({ code: 201, data: "Added" });
