@@ -1,8 +1,11 @@
 const AsyncHandler = require("express-async-handler");
+const movieService = require("../services/moviesService");
 
 class MovieController {
     add = AsyncHandler(async (req, res) => {
-        res.status(201).json({ code: 201, data: "Added" });
+        const movie = req.body;
+        const data = await movieService.add(movie);
+        res.status(201).json({ code: 201, data });
     });
     getAll = AsyncHandler(async (req, res) => {
         res.status(201).json({ code: 201, data: "Added" });
