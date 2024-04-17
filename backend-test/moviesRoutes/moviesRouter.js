@@ -10,8 +10,9 @@ moviesRouter.get("/", movieController.getAll);
 moviesRouter.get("/:id", isValidID("id"), movieController.getOne);
 
 // update
-
+moviesRouter.put("/:id", isValidID("id"), movieController.update);
 // delete
+moviesRouter.delete("/:id", isValidID("id"), movieController.remove);
 
 // add
 moviesRouter.post("/", movieController.add);

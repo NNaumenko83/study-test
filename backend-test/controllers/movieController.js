@@ -17,10 +17,15 @@ class MovieController {
         res.status(200).json({ code: 200, data: movie });
     });
     update = AsyncHandler(async (req, res) => {
-        res.status(201).json({ code: 201, data: "Added" });
+        const { id } = req.params;
+        const movie = req.body;
+        const updatedMovie = await movieService.update(id, movie);
+        res.status(200).json({ code: 200, data: updatedMovie });
     });
     remove = AsyncHandler(async (req, res) => {
-        res.status(201).json({ code: 201, data: "Added" });
+        const { id } = req.params;
+        const movie = await movieService.remove(id);
+        res.status(200).json({ code: 200, data: movie });
     });
 }
 

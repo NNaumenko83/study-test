@@ -12,6 +12,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use("/api/v1/movies", moviesRouter);
+app.use("*", (req, res, next) => {
+    res.status(404).json({
+        status: 404,
+        error: "Not found",
+    });
+});
+
+app.use((error, req, res, next) => {
+    res.status(500).json({
+        status: 500,
+        error: error.message,
+    });
+});
 
 mongoose
     .connect(process.env.MONGO_URL)
